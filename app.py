@@ -39,9 +39,6 @@ max_vocab_size = 20000
 max_sequence_len = 50
 
 
-
-
-
 # Tokenizar o texto
 #vectorizer = TextVectorization(max_tokens=max_vocab_size, output_sequence_length=max_sequence_len, output_mode='int')
 
