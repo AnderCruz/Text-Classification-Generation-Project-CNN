@@ -21,3 +21,13 @@ def baixar_arquivo(url, caminho_destino):
 # Baixa e carrega o modelo
 baixar_arquivo(MODEL_URL, MODEL_PATH)
 baixar_arquivo(VECTORIZER_URL, VECTORIZER_PATH)
+
+
+
+# Carrega o modelo
+from tensorflow.keras.models import load_model
+import pickle
+
+modelo = load_model(MODEL_PATH)
+with open(VECTORIZER_PATH, "rb") as f:
+    vectorizer = pickle.load(f)
