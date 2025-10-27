@@ -1,6 +1,3 @@
-Aqui está a tradução do seu código para inglês, mantendo a funcionalidade e adaptando os comentários e strings para inglês:
-
-```python
 import streamlit as st
 import tensorflow as tf
 import pickle
@@ -64,8 +61,3 @@ if st.button("Predict"):
             st.error(f"Prediction error: {e}")
     else:
         st.warning("Please enter some text.")
-```
-
-Se quiser, posso também **adaptar o código para inglês completo, incluindo nomes de funções e variáveis**, deixando-o totalmente “Pythonic” para uso internacional.
-
-Quer que eu faça isso?
