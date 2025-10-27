@@ -1,3 +1,4 @@
+import streamlit as st
 from tensorflow.keras.models import load_model
 import pickle
 import gdown
@@ -18,16 +19,13 @@ def baixar_arquivo(url, caminho_destino):
     else:
         st.info(f"📦 {caminho_destino} já existe.")
 
-# Baixa e carrega o modelo
+# 📦 Baixa os arquivos se ainda não existirem
 baixar_arquivo(MODEL_URL, MODEL_PATH)
 baixar_arquivo(VECTORIZER_URL, VECTORIZER_PATH)
 
-
-
-# Carrega o modelo
-from tensorflow.keras.models import load_model
-import pickle
-
+# 🧠 Carrega o modelo e o vectorizer
 modelo = load_model(MODEL_PATH)
 with open(VECTORIZER_PATH, "rb") as f:
     vectorizer = pickle.load(f)
+
+st.success("✅ Modelo e vectorizer carregados com sucesso!")
