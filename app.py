@@ -5,13 +5,53 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import numpy as np
 
 @st.cache_resource
-def carrega_modelo():
-    loaded_model = tf.keras.models.load_model('modelo_vidente.h5')
-
-    with open('vectorizer.pkl', 'rb') as file:
-        vectorizer = pickle.load(file)
-
-    return loaded_model, vectorizer
+def load_model():
+    model_path = 'model_fp16_fast.tflite'
+    
+    # Check if file already exists, if not, download it
+    if not os.path.exists(model_path):
+        st.info("📥 Downloading model...")
+        url = 'https://drive.google.com/file/d/1_DYLBo0fzko99hFWdYISbaPvNEd2Q9JH'
+        try:
+            gdown.download(url, model_path, quiet=False)
+            st.success("✅ Model download completed!")
+        except Exception as e:
+            st.error(f"❌ Download error: {str(e)}")
+            st.info("🔄 Trying alternative download method...")
+            return download_model_alternative(model_path)
+    
+    # Verify the downloaded file
+    try:
+        file_size = os.path.getsize(model_path)
+        if file_size == 0:
+            st.error("❌ Downloaded file is empty")
+            os.remove(model_path)
+            return download_model(model_path)
+    except:
+        pass
+    
+    try:
+        # Load the model with error handling
+        interpreter = tf.lite.Interpreter(model_path=model_path)
+        interpreter.allocate_tensors()
+        st.success("✅ Model loaded successfully!")
+        
+        # Show model information
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
+        
+        st.sidebar.info(f"**Input shape:** {input_details[0]['shape']}")
+        st.sidebar.info(f"**Output shape:** {output_details[0]['shape']}")
+        
+        return interpreter
+        
+    except Exception as e:
+        st.error(f"❌ Error loading model: {str(e)}")
+        st.info("🔄 Trying to re-download the model...")
+        # Remove potentially corrupted file
+        if os.path.exists(model_path):
+            os.remove(model_path)
+        return download_model(model_path)
 
 def predict_next_words(model, vectorizer, text_sequence, num_words=3):
     """Prevê as próximas palavras mais prováveis em uma sequência de texto.
