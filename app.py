@@ -5,8 +5,8 @@ MODEL_PATH = "seer_model.keras"
 VECTORIZER_PATH = "vectorizer.pkl"
 
 # Substitua com os IDs reais dos arquivos do Drive
-MODEL_URL = "https://drive.google.com/uc?id=SEU_ID_DO_MODELO"
-VECTORIZER_URL = "https://drive.google.com/uc?id=SEU_ID_DO_VECTORIZER"
+MODEL_URL = "https://drive.google.com/file/d/1_DYLBo0fzko99hFWdYISbaPvNEd2Q9JH"
+VECTORIZER_URL = "https://drive.google.com/file/d/1FD04fRz4l9zdnfije4S8Z8kG2Z044o65"
 
 def baixar_arquivo(url, caminho_destino):
     if not os.path.exists(caminho_destino):
