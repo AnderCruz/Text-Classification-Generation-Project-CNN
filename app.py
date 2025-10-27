@@ -16,15 +16,6 @@ def carrega_modelo():
 def predict_next_words(model, vectorizer, text_sequence, num_words=3):
     """Prevê as próximas palavras mais prováveis em uma sequência de texto.
 
-    Args:
-        model: O modelo Keras treinado para prever a próxima palavra.
-        vectorizer: O objeto vectorizer usado para transformar o texto em sequências numéricas.
-        text_sequence: A sequência de texto para a qual prever as próximas palavras.
-        num_words (opcional): O número de palavras a serem previstas (padrão: 3).
-
-    Returns:
-        Uma lista das próximas palavras mais prováveis.
-    """
     token_list = vectorizer([text_sequence])[0].numpy()
     token_list = pad_sequences([token_list], maxlen=max_sequence_len - 1, padding='pre')
     predicted_probs = model.predict(token_list, verbose=0)[0]
