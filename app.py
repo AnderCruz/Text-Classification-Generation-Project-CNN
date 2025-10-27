@@ -40,7 +40,7 @@ def predict_next_words(model, vectorizer, text_sequence, num_words=3):
     return predicted_words
 
 # Configurações do modelo
-max_vocab_size = 20000
+max_vocab_size = 2000
 max_sequence_len = 50
 
 # Carrega modelo e vectorizer
